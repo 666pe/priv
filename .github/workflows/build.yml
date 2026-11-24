@@ -35,8 +35,8 @@ jobs:
 
       - name: Verificar executável
         run: |
-          ls -la dist/6p_priv.exe
-          ./dist/6p_priv.exe --help 2>&1 | head -5 || true
+          dir dist\6p_priv.exe
+          .\dist\6p_priv.exe --help 2>&1 | Select-Object -First 5
 
       - name: Upload do artefato (download direto)
         uses: actions/upload-artifact@v4
