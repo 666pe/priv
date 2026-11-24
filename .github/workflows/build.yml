@@ -12,7 +12,7 @@ jobs:
   build:
     name: Compilar no Windows
     runs-on: windows-latest
-    timeout-minutes: 15
+    timeout-minutes: 30
 
     steps:
       - name: Baixar código
@@ -23,6 +23,14 @@ jobs:
         with:
           python-version: '3.12'
           architecture: 'x64'
+
+      - name: Cache pip
+        uses: actions/cache@v4
+        with:
+          path: ~\AppData\Local\pip\Cache
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
 
       - name: Instalar dependências
         run: |
