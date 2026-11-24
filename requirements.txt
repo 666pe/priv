@@ -1,0 +1,6 @@
+# 6p priv - Dependências
+# Instale com: pip install -r requirements.txt
+
+psutil>=5.9.0
+winshell>=0.6; sys_platform == "win32"  # Para esvaziar lixeira (opcional)
+pyinstaller>=6.0.0  # Para compilar .exe
