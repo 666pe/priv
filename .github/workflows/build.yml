@@ -1,4 +1,4 @@
-name: Build 6p_priv.exe
+name: Build Debug (com console)
 
 on:
   workflow_dispatch:
@@ -9,15 +9,23 @@ permissions:
 jobs:
   build:
     runs-on: windows-latest
-    timeout-minutes: 45
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
       - run: pip install psutil winshell pyinstaller
-      - run: pyinstaller --onefile --windowed --name=6p_priv --noconfirm main.py
+      - run: |
+          pyinstaller --onefile --console --name=6p_priv_debug --noconfirm ^
+            --hidden-import=psutil ^
+            --hidden-import=winshell ^
+            --hidden-import=tkinter ^
+            --hidden-import=tkinter.ttk ^
+            --hidden-import=tkinter.scrolledtext ^
+            --collect-all=tkinter ^
+            main.py
       - uses: actions/upload-artifact@v4
         with:
-          name: 6p_priv.exe
-          path: dist/6p_priv.exe
+          name: 6p_priv_debug.exe
+          path: dist/6p_priv_debug.exe
